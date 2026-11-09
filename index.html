@@ -36,7 +36,7 @@
     z-index:-5;
     background:
       linear-gradient(180deg, rgba(8,15,22,.30), rgba(5,12,18,.76) 55%, rgba(4,10,14,.95) 100%),
-      url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Midtown_Manhattan_Skyline_2026_005.jpg') center center / cover no-repeat;
+      url('https://commons.wikimedia.org/wiki/Special:Redirect/file/City_of_lights_(Unsplash).jpg') center center / cover no-repeat;
     transform:scale(1.03);
   }
   .backdrop::before{
@@ -117,6 +117,15 @@
   .controls{display:grid; grid-template-columns:1fr 1fr; gap:14px}
   @media(max-width:650px){.controls{grid-template-columns:1fr}}
   .field label{display:block; font-size:13px; font-weight:700; margin-bottom:7px; letter-spacing:.02em}
+  .refline{display:flex;flex-wrap:wrap;gap:7px 10px;margin-top:7px;font-size:11px;line-height:1.35;color:var(--muted)}
+  .refline a{color:#dff4ff;text-decoration:none;border-bottom:1px solid rgba(223,244,255,.28)}
+  .refline a:hover{border-color:#dff4ff}
+  .reference-card{margin-top:18px;padding:16px;border-radius:18px;background:rgba(8,18,26,.54);border:1px solid rgba(191,234,255,.12)}
+  .reference-card h3{margin:0 0 10px;font-size:16px}
+  .reference-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  @media(max-width:650px){.reference-grid{grid-template-columns:1fr}}
+  .reference-grid a{display:block;padding:10px 12px;border-radius:12px;background:rgba(127,200,255,.10);border:1px solid rgba(191,234,255,.10);color:#eef9ff;text-decoration:none;font-size:12px;line-height:1.35}
+  .reference-grid a:hover{background:rgba(127,200,255,.18)}
   select, input[type="number"]{
     width:100%; padding:12px 13px; border-radius:12px; border:1px solid rgba(191,234,255,.18);
     background:rgba(7,16,24,.62); color:var(--text); outline:none;
@@ -200,6 +209,7 @@
             <small>Paranormal Activity · Wed. Feb. 10 · 7:00 PM</small>
           </button>
         </div>
+        <div class="refline"><a href="https://paranormalbroadway.com/tickets" target="_blank" rel="noreferrer noopener">Official show dates & tickets ↗</a></div>
       </section>
 
       <section class="section controls">
@@ -217,6 +227,7 @@
             <option value="share">Shares your Arlo room</option>
             <option value="separate">Separate Arlo room</option>
           </select>
+          <div class="refline"><a href="https://arlohotels.com/midtown/" target="_blank" rel="noreferrer noopener">Arlo Midtown ↗</a></div>
         </div>
 
         <div class="field">
@@ -225,6 +236,7 @@
             <option value="mid">Mid-Orchestra / Insider</option>
             <option value="preferred">Preferred</option>
           </select>
+          <div class="refline"><a href="https://paranormalbroadway.com/tickets" target="_blank" rel="noreferrer noopener">Official seat tiers & prices ↗</a></div>
         </div>
 
         <div class="field">
@@ -243,6 +255,11 @@
             <option value="delta">Delta → LGA</option>
             <option value="united">United → EWR</option>
           </select>
+          <div class="refline">
+            <a href="https://www.southwest.com/" target="_blank" rel="noreferrer noopener">Southwest ↗</a>
+            <a href="https://www.delta.com/" target="_blank" rel="noreferrer noopener">Delta ↗</a>
+            <a href="https://www.united.com/" target="_blank" rel="noreferrer noopener">United ↗</a>
+          </div>
         </div>
       </section>
 
@@ -284,8 +301,8 @@
       </details>
 
       <section class="map-card">
-        <h3>Airport → Hotel → Theater Map</h3>
-        <p class="map-sub">A simple route graphic showing the selected airport, Arlo Midtown, and the August Wilson Theatre.</p>
+        <h3>Midtown Google Map</h3>
+        <p class="map-sub">Zoomed in around Arlo Midtown and the August Wilson Theatre. Use the route buttons for the selected airport leg.</p>
         <div class="google-map-wrap">
           <iframe id="googleMap" title="Google Map showing the NYC trip area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
@@ -308,6 +325,21 @@
           </div>
         </div>
       </section>
+
+      <section class="reference-card">
+        <h3>Reference links</h3>
+        <div class="reference-grid">
+          <a href="https://paranormalbroadway.com/tickets" target="_blank" rel="noreferrer noopener"><strong>Paranormal Activity</strong><br>Official dates, seat tiers and tickets</a>
+          <a href="https://arlohotels.com/midtown/" target="_blank" rel="noreferrer noopener"><strong>Arlo Midtown</strong><br>Official hotel page</a>
+          <a href="https://www.southwest.com/" target="_blank" rel="noreferrer noopener"><strong>Southwest</strong><br>Search nonstop MCI → LGA</a>
+          <a href="https://www.delta.com/" target="_blank" rel="noreferrer noopener"><strong>Delta</strong><br>Search nonstop MCI → LGA</a>
+          <a href="https://www.united.com/" target="_blank" rel="noreferrer noopener"><strong>United</strong><br>Search nonstop MCI → EWR</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=August+Wilson+Theatre+245+W+52nd+St+New+York+NY" target="_blank" rel="noreferrer noopener"><strong>August Wilson Theatre</strong><br>Open in Google Maps</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Arlo+Midtown+351+W+38th+St+New+York+NY" target="_blank" rel="noreferrer noopener"><strong>Arlo Midtown map</strong><br>Open in Google Maps</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=LaGuardia+Airport" target="_blank" rel="noreferrer noopener"><strong>LaGuardia (LGA)</strong><br>Open in Google Maps</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Newark+Liberty+International+Airport" target="_blank" rel="noreferrer noopener"><strong>Newark (EWR)</strong><br>Open in Google Maps</a>
+        </div>
+      </section>
     </main>
 
     <aside class="summary">
@@ -321,7 +353,7 @@
   </div>
 
   <div class="footer">
-    Backdrop photo: <a href="https://commons.wikimedia.org/wiki/File:Midtown_Manhattan_Skyline_2026_005.jpg" target="_blank" rel="noreferrer noopener">“Midtown Manhattan Skyline 2026 005.jpg” by Kidfly182</a> (CC BY 4.0), via Wikimedia Commons.
+    Backdrop photo: <a href="https://commons.wikimedia.org/wiki/File:City_of_lights_(Unsplash).jpg" target="_blank" rel="noreferrer noopener">“City of lights” by Luca Bravo</a>, via Wikimedia Commons (CC0).
   </div>
 </div>
 
@@ -385,7 +417,7 @@
 
     // Google Maps standard embed URL: centers the live map without requiring a custom API key.
     const mapQuery = encodeURIComponent('Arlo Midtown New York');
-    $('#googleMap').src = 'https://www.google.com/maps?q=' + mapQuery + '&z=12&output=embed';
+    $('#googleMap').src = 'https://www.google.com/maps?q=' + encodeURIComponent('Arlo Midtown, 351 W 38th St, New York, NY 10018') + '&z=15&output=embed';
 
     $('#airportToHotelLink').href =
       'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(airportAddress) +
