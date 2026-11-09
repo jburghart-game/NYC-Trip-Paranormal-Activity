@@ -17,18 +17,68 @@
     --good:#9ad3a2;
   }
   *{box-sizing:border-box}
+  html{min-height:100%;background:#071317}
   body{
     margin:0;
+    min-height:100%;
+    overflow-x:hidden;
     font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    background:linear-gradient(180deg,#071317,#0a1a1f);
+    background:
+      radial-gradient(circle at 50% 8%,rgba(163,211,228,.18),transparent 34%),
+      linear-gradient(180deg,rgba(3,14,24,.30),rgba(4,16,22,.68) 48%,rgba(3,12,16,.96));
     color:var(--text);
   }
-  .wrap{max-width:1180px;margin:0 auto;padding:32px 20px 48px}
+  .winter-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:-3;
+    pointer-events:none;
+    overflow:hidden;
+    background:linear-gradient(180deg,#18364a 0%,#284c5d 34%,#3e5d68 58%,#14252b 100%);
+  }
+  .winter-backdrop:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 70% 14%,rgba(232,246,250,.42),transparent 16%),
+      linear-gradient(180deg,rgba(10,24,38,.06),rgba(5,15,19,.52));
+  }
+  .skyline{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:72%;
+    opacity:.96;
+    filter:drop-shadow(0 -10px 24px rgba(4,13,18,.2));
+  }
+  .snow-layer{position:absolute;inset:-12% 0 0;overflow:hidden;z-index:2}
+  .flake{
+    position:absolute;
+    top:-8%;
+    left:var(--x);
+    width:var(--size);
+    height:var(--size);
+    border-radius:50%;
+    background:rgba(255,255,255,var(--alpha));
+    box-shadow:0 0 8px rgba(255,255,255,.24);
+    animation:snowfall var(--duration) linear var(--delay) infinite;
+    transform:translate3d(0,0,0);
+  }
+  @keyframes snowfall{
+    0%{transform:translate3d(0,-8vh,0) rotate(0deg)}
+    50%{transform:translate3d(var(--drift),52vh,0) rotate(180deg)}
+    100%{transform:translate3d(calc(var(--drift) * -.35),112vh,0) rotate(360deg)}
+  }
+  @media (prefers-reduced-motion: reduce){.flake{animation:none;opacity:.55}}
+  .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:32px 20px 48px}
   h1{margin:0 0 8px;font-size:clamp(30px,5vw,52px);letter-spacing:-.03em}
   .sub{color:var(--muted);margin-bottom:28px;font-size:16px}
   .grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:22px}
   @media(max-width:860px){.grid{grid-template-columns:1fr}}
-  .panel,.summary{background:rgba(16,37,43,.86);border:1px solid var(--border);border-radius:20px;padding:20px}
+  .panel,.summary{background:rgba(7,23,29,.82);border:1px solid rgba(150,202,216,.22);border-radius:20px;padding:20px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 24px 70px rgba(0,0,0,.20)}
   .section{margin-bottom:22px}
   .label{font-size:14px;font-weight:700;margin-bottom:10px;display:block}
   .date-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -63,6 +113,59 @@
 </style>
 </head>
 <body>
+<div class="winter-backdrop" aria-hidden="true">
+  <svg class="skyline" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="building" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#17313c"/>
+        <stop offset="1" stop-color="#071217"/>
+      </linearGradient>
+      <linearGradient id="nearBuilding" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#234652"/>
+        <stop offset="1" stop-color="#0b171c"/>
+      </linearGradient>
+      <linearGradient id="snowbank" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#e9f4f7" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#8eacb5" stop-opacity=".32"/>
+      </linearGradient>
+      <pattern id="windows" width="28" height="34" patternUnits="userSpaceOnUse">
+        <rect width="28" height="34" fill="none"/>
+        <rect x="8" y="8" width="5" height="8" rx="1" fill="#e7cf91" opacity=".55"/>
+      </pattern>
+    </defs>
+    <path d="M0 640 Q170 612 330 630 T660 622 T980 635 T1280 617 T1600 628 V900 H0Z" fill="url(#snowbank)" opacity=".55"/>
+    <g fill="url(#building)">
+      <rect x="0" y="438" width="128" height="330"/><rect x="105" y="505" width="105" height="265"/>
+      <rect x="188" y="390" width="154" height="380"/><rect x="318" y="472" width="86" height="298"/>
+      <rect x="392" y="330" width="138" height="440"/><rect x="520" y="458" width="90" height="312"/>
+      <rect x="596" y="286" width="126" height="484"/><rect x="708" y="440" width="130" height="330"/>
+      <rect x="824" y="360" width="112" height="410"/><rect x="924" y="470" width="140" height="300"/>
+      <rect x="1050" y="318" width="150" height="452"/><rect x="1187" y="430" width="112" height="340"/>
+      <rect x="1284" y="380" width="136" height="390"/><rect x="1404" y="472" width="196" height="298"/>
+    </g>
+    <g fill="url(#windows)" opacity=".72">
+      <rect x="0" y="438" width="128" height="330"/><rect x="188" y="390" width="154" height="380"/>
+      <rect x="392" y="330" width="138" height="440"/><rect x="596" y="286" width="126" height="484"/>
+      <rect x="824" y="360" width="112" height="410"/><rect x="1050" y="318" width="150" height="452"/>
+      <rect x="1284" y="380" width="136" height="390"/>
+    </g>
+    <!-- Empire State inspired center silhouette -->
+    <g>
+      <rect x="738" y="236" width="106" height="534" fill="url(#nearBuilding)"/>
+      <rect x="752" y="198" width="78" height="572" fill="url(#nearBuilding)"/>
+      <rect x="765" y="154" width="52" height="616" fill="#173640"/>
+      <rect x="778" y="114" width="26" height="656" fill="#1b3c47"/>
+      <rect x="787" y="65" width="8" height="705" fill="#bad3da" opacity=".65"/>
+      <rect x="738" y="236" width="106" height="534" fill="url(#windows)" opacity=".48"/>
+    </g>
+    <!-- Snowy roof lines -->
+    <g stroke="#d9edf2" stroke-width="8" stroke-linecap="round" opacity=".5">
+      <path d="M0 438h128M188 390h154M392 330h138M596 286h126M824 360h112M1050 318h150M1284 380h136"/>
+    </g>
+    <path d="M0 765 Q330 728 610 753 T1090 746 T1600 760 V900 H0Z" fill="#dcecef" opacity=".23"/>
+  </svg>
+  <div id="snowLayer" class="snow-layer"></div>
+</div>
 <div class="wrap">
   <h1>NYC Paranormal Activity Trip Planner</h1>
   <div class="sub">Toggle your date, travelers, Arlo room setup, seat tier, and spending level to compare trip costs.</div>
@@ -167,8 +270,28 @@
   $('#airline').addEventListener('change', () => { loadPreset(); render(); });
   ['#airfare','#hotel','#food','#transit','#misc'].forEach(id => $(id).addEventListener('input', render));
   $('#reset').addEventListener('click', () => { loadPreset(); render(); });
+  function buildSnow(){
+    const layer = document.getElementById('snowLayer');
+    if (!layer) return;
+    const count = window.matchMedia('(max-width: 620px)').matches ? 48 : 84;
+    const frag = document.createDocumentFragment();
+    for(let i=0;i<count;i++){
+      const f = document.createElement('i');
+      f.className = 'flake';
+      const size = (Math.random()*5 + 2).toFixed(1) + 'px';
+      f.style.setProperty('--x', (Math.random()*100).toFixed(2) + '%');
+      f.style.setProperty('--size', size);
+      f.style.setProperty('--alpha', (Math.random()*.55 + .28).toFixed(2));
+      f.style.setProperty('--duration', (Math.random()*10 + 9).toFixed(2) + 's');
+      f.style.setProperty('--delay', (-Math.random()*18).toFixed(2) + 's');
+      f.style.setProperty('--drift', (Math.random()*90 - 45).toFixed(1) + 'px');
+      frag.appendChild(f);
+    }
+    layer.appendChild(frag);
+  }
   loadPreset();
   render();
+  buildSnow();
 })();
 </script>
 </body>
