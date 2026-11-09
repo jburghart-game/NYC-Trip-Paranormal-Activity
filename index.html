@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paranormal Activity NYC Trip Planner</title>
+<style>
+  :root{
+    --bg:#071317;
+    --panel:#0d1d22;
+    --card:#10252b;
+    --text:#f5f7f8;
+    --muted:#9db2b9;
+    --border:#24424b;
+    --accent:#85d8e8;
+    --accent-bg:#12343d;
+    --good:#9ad3a2;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:linear-gradient(180deg,#071317,#0a1a1f);
+    color:var(--text);
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 20px 48px}
+  h1{margin:0 0 8px;font-size:clamp(30px,5vw,52px);letter-spacing:-.03em}
+  .sub{color:var(--muted);margin-bottom:28px;font-size:16px}
+  .grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:22px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .panel,.summary{background:rgba(16,37,43,.86);border:1px solid var(--border);border-radius:20px;padding:20px}
+  .section{margin-bottom:22px}
+  .label{font-size:14px;font-weight:700;margin-bottom:10px;display:block}
+  .date-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:540px){.date-grid{grid-template-columns:1fr}}
+  button,select,input{font:inherit}
+  .date-btn{width:100%;text-align:left;padding:14px;border-radius:14px;border:1px solid var(--border);background:#0a171b;color:var(--text);cursor:pointer;min-height:72px}
+  .date-btn.active{border-color:var(--accent);background:var(--accent-bg)}
+  .date-btn small{display:block;color:var(--muted);margin-top:4px}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:620px){.controls{grid-template-columns:1fr}}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+  select,input{width:100%;padding:12px 13px;border-radius:11px;border:1px solid var(--border);background:#09171b;color:var(--text);outline:none}
+  select:focus,input:focus,button:focus{box-shadow:0 0 0 3px rgba(133,216,232,.18);border-color:var(--accent)}
+  details{border-top:1px solid var(--border);padding-top:16px}
+  summary{cursor:pointer;font-weight:700}
+  .assumptions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  @media(max-width:620px){.assumptions{grid-template-columns:1fr}}
+  .reset{margin-top:14px;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:#0a171b;color:var(--text);cursor:pointer}
+  .summary{position:sticky;top:18px;height:max-content}
+  @media(max-width:860px){.summary{position:static}}
+  .eyebrow{text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-size:12px}
+  .total{font-size:48px;font-weight:800;letter-spacing:-.04em;margin:4px 0}
+  .per{color:var(--muted);margin-bottom:18px}
+  .row{display:flex;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid rgba(36,66,75,.55)}
+  .row span:first-child{color:var(--muted)}
+  .grand{border-top:1px solid var(--border);margin-top:8px;padding-top:14px;font-size:18px;font-weight:800}
+  .trip{margin-top:20px;padding-top:18px;border-top:1px solid var(--border);line-height:1.6;color:var(--muted)}
+  .trip strong{color:var(--text)}
+  .note{margin-top:18px;padding:13px;border-radius:12px;background:#0a171b;color:var(--muted);font-size:12px;line-height:1.55}
+  .pill{display:inline-block;margin-top:8px;padding:5px 9px;border-radius:999px;background:#0c2b31;color:var(--good);font-size:12px;font-weight:700}
+  .footer{margin-top:24px;color:#7f979f;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>NYC Paranormal Activity Trip Planner</h1>
+  <div class="sub">Toggle your date, travelers, Arlo room setup, seat tier, and spending level to compare trip costs.</div>
+  <div class="grid">
+    <main class="panel">
+      <section class="section">
+        <span class="label">Trip dates</span>
+        <div class="date-grid">
+          <button class="date-btn active" data-date="jan" type="button"><strong>Jan. 19–21, 2027</strong><small>Paranormal Activity · Wed. Jan. 20 · 7:00 PM</small></button>
+          <button class="date-btn" data-date="feb" type="button"><strong>Feb. 9–11, 2027</strong><small>Paranormal Activity · Wed. Feb. 10 · 7:00 PM</small></button>
+        </div>
+      </section>
+      <section class="section controls">
+        <div class="field"><label for="party">Who is going?</label><select id="party"><option value="2">You + wife</option><option value="3">You + wife + brother</option></select></div>
+        <div class="field" id="roomWrap"><label for="room">Brother's room</label><select id="room"><option value="share">Shares your Arlo room</option><option value="separate">Separate Arlo room</option></select></div>
+        <div class="field"><label for="seat">Broadway seats</label><select id="seat"><option value="mid">Mid-Orchestra / Insider</option><option value="preferred">Preferred</option></select></div>
+        <div class="field"><label for="level">Budget style</label><select id="level"><option value="lean">Lean</option><option value="expected" selected>Expected</option><option value="comfortable">Comfortable</option></select></div>
+        <div class="field"><label for="airline">Nonstop airline</label><select id="airline"><option value="southwest">Southwest → LGA</option><option value="delta">Delta → LGA/JFK</option><option value="united">United → EWR</option></select></div>
+      </section>
+      <details>
+        <summary>Adjust planning assumptions</summary>
+        <div class="assumptions">
+          <div class="field"><label for="airfare">Airfare per person ($)</label><input id="airfare" type="number" min="0" step="10"></div>
+          <div class="field"><label for="hotel">Arlo per room / night ($)</label><input id="hotel" type="number" min="0" step="10"></div>
+          <div class="field"><label for="food">Food per person for trip ($)</label><input id="food" type="number" min="0" step="10"></div>
+          <div class="field"><label for="transit">Local transportation total ($)</label><input id="transit" type="number" min="0" step="10"></div>
+          <div class="field"><label for="misc">Miscellaneous cushion ($)</label><input id="misc" type="number" min="0" step="10"></div>
+        </div>
+        <button class="reset" id="reset" type="button">Reset assumptions</button>
+      </details>
+    </main>
+    <aside class="summary">
+      <div class="eyebrow">Estimated trip total</div>
+      <div id="total" class="total">$0</div>
+      <div id="perPerson" class="per"></div>
+      <div id="breakdown"></div>
+      <div id="tripSummary" class="trip"></div>
+      <div class="note">Planning estimates only. Ticket anchors are approximately $100 for Mid-Orchestra/Insider and $145 for Preferred before a modest fee cushion. Airfare and hotel inputs are editable because live pricing will change.</div>
+    </aside>
+  </div>
+  <div class="footer">Standalone planner — no login, internet connection, or installation required after download.</div>
+</div>
+<script>
+(() => {
+  const state = { date:'jan' };
+  const presets = {
+    lean: { airfare:260, hotelJan:230, hotelFeb:240, food:160, transit:90, misc:60 },
+    expected: { airfare:360, hotelJan:300, hotelFeb:315, food:210, transit:120, misc:90 },
+    comfortable: { airfare:450, hotelJan:375, hotelFeb:395, food:280, transit:160, misc:140 }
+  };
+  const airlineAdj = { southwest:0, delta:-25, united:-15 };
+  const seatPrice = { mid:112, preferred:162 };
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  function money(n){ return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Math.max(0, Number(n)||0)); }
+  function val(id){ const n = Number($(id).value); return Number.isFinite(n) && n >= 0 ? n : 0; }
+  function loadPreset(){
+    const level = $('#level').value;
+    const airline = $('#airline').value;
+    const p = presets[level];
+    $('#airfare').value = Math.max(0, p.airfare + airlineAdj[airline]);
+    $('#hotel').value = state.date === 'jan' ? p.hotelJan : p.hotelFeb;
+    $('#food').value = p.food;
+    $('#transit').value = p.transit;
+    $('#misc').value = p.misc;
+  }
+  function render(){
+    const party = Number($('#party').value);
+    const room = $('#room').value;
+    const seat = $('#seat').value;
+    const airline = $('#airline').value;
+    $('#room').disabled = party !== 3;
+    $('#roomWrap').style.opacity = party === 3 ? '1' : '.45';
+    $$('.date-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.date === state.date));
+    const rooms = party === 3 && room === 'separate' ? 2 : 1;
+    const airfare = val('#airfare') * party;
+    const hotel = val('#hotel') * 2 * rooms;
+    const tickets = seatPrice[seat] * party;
+    const food = val('#food') * party;
+    const transit = val('#transit');
+    const misc = val('#misc');
+    const total = airfare + hotel + tickets + food + transit + misc;
+    $('#total').textContent = money(total);
+    $('#perPerson').textContent = money(total / party) + ' per person';
+    const rows = [
+      ['Nonstop airfare', airfare],
+      [`Arlo · ${rooms} room${rooms > 1 ? 's' : ''} · 2 nights`, hotel],
+      [`${seat === 'preferred' ? 'Preferred' : 'Mid-Orchestra'} tickets`, tickets],
+      ['Lunches + dinners + snacks', food],
+      ['Airport/local transportation', transit],
+      ['Miscellaneous cushion', misc]
+    ];
+    $('#breakdown').innerHTML = rows.map(([label, amount]) => `<div class="row"><span>${label}</span><strong>${money(amount)}</strong></div>`).join('') + `<div class="row grand"><span>Total</span><strong>${money(total)}</strong></div>`;
+    const dateText = state.date === 'jan' ? 'Jan. 19–21, with the Jan. 20 7 PM show' : 'Feb. 9–11, with the Feb. 10 7 PM show';
+    const airlineText = { southwest:'Southwest nonstop to LaGuardia', delta:'Delta nonstop', united:'United nonstop to Newark' }[airline];
+    const roomText = party === 2 ? 'one Arlo room' : room === 'share' ? 'one Arlo room shared by all three' : 'two separate Arlo rooms';
+    $('#tripSummary').innerHTML = `<strong>${dateText}</strong><br>${party} travelers · ${roomText}<br>${airlineText} · ${seat === 'preferred' ? 'Preferred' : 'Mid-Orchestra / Insider'} seats<br><span class="pill">2-night NYC trip</span>`;
+  }
+  $$('.date-btn').forEach(btn => btn.addEventListener('click', () => { state.date = btn.dataset.date; loadPreset(); render(); }));
+  ['#party','#room','#seat'].forEach(id => $(id).addEventListener('change', render));
+  $('#level').addEventListener('change', () => { loadPreset(); render(); });
+  $('#airline').addEventListener('change', () => { loadPreset(); render(); });
+  ['#airfare','#hotel','#food','#transit','#misc'].forEach(id => $(id).addEventListener('input', render));
+  $('#reset').addEventListener('click', () => { loadPreset(); render(); });
+  loadPreset();
+  render();
+})();
+</script>
+</body>
+</html>
