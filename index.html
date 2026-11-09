@@ -164,6 +164,19 @@
   .note{margin-top:18px; padding:14px; border-radius:14px; background:rgba(8,18,26,.62); color:var(--muted); font-size:12px; line-height:1.55}
   .pill{display:inline-block; margin-top:8px; padding:5px 10px; border-radius:999px; background:rgba(127,200,255,.15); color:#dff4ff; font-size:12px; font-weight:700}
 
+  .sights-card{margin-top:18px;padding:18px;border-radius:20px;background:rgba(8,18,26,.54);border:1px solid rgba(191,234,255,.12)}
+  .sights-card h3{margin:0 0 6px;font-size:20px}
+  .sights-sub{margin:0 0 14px;color:var(--muted);font-size:14px;line-height:1.5}
+  .sights-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  @media(max-width:700px){.sights-grid{grid-template-columns:1fr}}
+  .sight{padding:14px;border-radius:16px;background:rgba(11,25,36,.66);border:1px solid rgba(191,234,255,.10)}
+  .sight-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .sight h4{margin:0;font-size:16px}
+  .price-tag{flex:0 0 auto;padding:5px 8px;border-radius:999px;background:rgba(127,200,255,.14);color:#eef9ff;font-size:11px;font-weight:700}
+  .sight p{margin:8px 0 10px;color:var(--muted);font-size:12px;line-height:1.5}
+  .sight-links{display:flex;flex-wrap:wrap;gap:8px}
+  .sight-links a{color:#eef9ff;text-decoration:none;font-size:11px;border-bottom:1px solid rgba(238,249,255,.26)}
+  .sight-links a:hover{border-color:#eef9ff}
   .map-card{margin-top:18px; padding:18px 18px 16px}
   .map-card h3{margin:0 0 6px; font-size:20px}
   .map-sub{margin:0 0 12px; color:var(--muted); font-size:14px; line-height:1.45}
@@ -300,9 +313,75 @@
         <button class="reset" id="reset" type="button">Reset assumptions</button>
       </details>
 
+      <section class="sights-card">
+        <h3>Film + Art Nearby</h3>
+        <p class="sights-sub">All of these are easy to reach from Arlo Midtown and the theater district. Prices below are current adult/general-admission prices as of November 2026.</p>
+        <div class="sights-grid">
+          <article class="sight">
+            <div class="sight-top">
+              <h4>MoMA</h4>
+              <span class="price-tag">$30</span>
+            </div>
+            <p>Best fit for your art interest, and especially good if you also care about film: MoMA has major modern-art galleries plus an active film program and screening theaters. 11 W 53rd St.</p>
+            <div class="sight-links">
+              <a href="https://www.moma.org/visit/" target="_blank" rel="noreferrer noopener">Official visit info ↗</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=MoMA+11+W+53rd+St+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
+            </div>
+          </article>
+
+          <article class="sight">
+            <div class="sight-top">
+              <h4>Paley Museum</h4>
+              <span class="price-tag">$20</span>
+            </div>
+            <p>A very close media-history stop with television, film, archival screenings and rotating exhibitions. 25 W 52nd St — only a few blocks from the August Wilson.</p>
+            <div class="sight-links">
+              <a href="https://www.paleycenter.org/visit-visitny" target="_blank" rel="noreferrer noopener">Official visit info ↗</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=Paley+Museum+25+W+52nd+St+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
+            </div>
+          </article>
+
+          <article class="sight">
+            <div class="sight-top">
+              <h4>Museum of Arts and Design</h4>
+              <span class="price-tag">$20</span>
+            </div>
+            <p>Contemporary craft, design, objects and material-focused exhibitions at Columbus Circle. Good counterpoint to MoMA if you like production design and visual culture. 2 Columbus Circle.</p>
+            <div class="sight-links">
+              <a href="https://madmuseum.org/visit" target="_blank" rel="noreferrer noopener">Official visit info ↗</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=Museum+of+Arts+and+Design+2+Columbus+Circle+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
+            </div>
+          </article>
+
+          <article class="sight">
+            <div class="sight-top">
+              <h4>Film at Lincoln Center</h4>
+              <span class="price-tag">$18–19</span>
+            </div>
+            <p>Probably the best pure-film add-on: repertory cinema, restorations, new releases, festivals and filmmaker events. Standard series tickets are $18; new releases/festivals are $19, before online service fees.</p>
+            <div class="sight-links">
+              <a href="https://www.filmlinc.org/visit-us/" target="_blank" rel="noreferrer noopener">Tickets & visit info ↗</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=Film+at+Lincoln+Center+144+W+65th+St+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
+            </div>
+          </article>
+
+          <article class="sight">
+            <div class="sight-top">
+              <h4>Museum of Broadway</h4>
+              <span class="price-tag">$34–43</span>
+            </div>
+            <p>Not film, but a strong fit for this particular trip: immersive Broadway history, costumes, sets and backstage craft. Timed tickets generally run $34–43 before fees/tax. 145 W 45th St.</p>
+            <div class="sight-links">
+              <a href="https://www.themuseumofbroadway.com/plan-your-visit" target="_blank" rel="noreferrer noopener">Official visit info ↗</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=Museum+of+Broadway+145+W+45th+St+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="map-card">
-        <h3>Midtown Google Map</h3>
-        <p class="map-sub">Zoomed in around Arlo Midtown and the August Wilson Theatre. Use the route buttons for the selected airport leg.</p>
+        <h3>Midtown Film + Art Map</h3>
+        <p class="map-sub">The embedded Google Map follows a Midtown route through the hotel, art/film stops, and the August Wilson Theatre. Use the airport button separately for LGA or EWR.</p>
         <div class="google-map-wrap">
           <iframe id="googleMap" title="Google Map showing the NYC trip area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
@@ -338,6 +417,11 @@
           <a href="https://www.google.com/maps/search/?api=1&query=Arlo+Midtown+351+W+38th+St+New+York+NY" target="_blank" rel="noreferrer noopener"><strong>Arlo Midtown map</strong><br>Open in Google Maps</a>
           <a href="https://www.google.com/maps/search/?api=1&query=LaGuardia+Airport" target="_blank" rel="noreferrer noopener"><strong>LaGuardia (LGA)</strong><br>Open in Google Maps</a>
           <a href="https://www.google.com/maps/search/?api=1&query=Newark+Liberty+International+Airport" target="_blank" rel="noreferrer noopener"><strong>Newark (EWR)</strong><br>Open in Google Maps</a>
+          <a href="https://www.moma.org/visit/" target="_blank" rel="noreferrer noopener"><strong>MoMA</strong><br>$30 adult admission</a>
+          <a href="https://www.paleycenter.org/visit-visitny" target="_blank" rel="noreferrer noopener"><strong>Paley Museum</strong><br>$20 adult admission</a>
+          <a href="https://madmuseum.org/visit" target="_blank" rel="noreferrer noopener"><strong>Museum of Arts and Design</strong><br>$20 general admission</a>
+          <a href="https://www.filmlinc.org/visit-us/" target="_blank" rel="noreferrer noopener"><strong>Film at Lincoln Center</strong><br>$18–19 standard tickets</a>
+          <a href="https://www.themuseumofbroadway.com/plan-your-visit" target="_blank" rel="noreferrer noopener"><strong>Museum of Broadway</strong><br>$34–43 timed tickets</a>
         </div>
       </section>
     </main>
@@ -417,7 +501,16 @@
 
     // Google Maps standard embed URL: centers the live map without requiring a custom API key.
     const mapQuery = encodeURIComponent('Arlo Midtown New York');
-    $('#googleMap').src = 'https://www.google.com/maps?q=' + encodeURIComponent('Arlo Midtown, 351 W 38th St, New York, NY 10018') + '&z=15&output=embed';
+    const routePoints = [
+      'Arlo Midtown, 351 W 38th St, New York, NY 10018',
+      'Museum of Broadway, 145 W 45th St, New York, NY 10036',
+      'Paley Museum, 25 W 52nd St, New York, NY 10019',
+      'Museum of Modern Art, 11 W 53rd St, New York, NY 10019',
+      'Museum of Arts and Design, 2 Columbus Circle, New York, NY 10019',
+      'Film at Lincoln Center, 144 W 65th St, New York, NY 10023',
+      'August Wilson Theatre, 245 W 52nd St, New York, NY 10019'
+    ];
+    $('#googleMap').src = 'https://www.google.com/maps/dir/' + routePoints.map(encodeURIComponent).join('/') + '/?output=embed';
 
     $('#airportToHotelLink').href =
       'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(airportAddress) +
