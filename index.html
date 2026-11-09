@@ -6,197 +6,310 @@
 <title>Paranormal Activity NYC Trip Planner</title>
 <style>
   :root{
-    --bg:#071317;
-    --panel:#0d1d22;
-    --card:#10252b;
-    --text:#f5f7f8;
-    --muted:#9db2b9;
-    --border:#24424b;
-    --accent:#85d8e8;
-    --accent-bg:#12343d;
-    --good:#9ad3a2;
+    --bg:#081018;
+    --panel:rgba(9,20,28,.70);
+    --panel-2:rgba(9,20,28,.78);
+    --card:rgba(13,27,38,.70);
+    --text:#f4f7fa;
+    --muted:#c2d0da;
+    --border:rgba(167,199,214,.22);
+    --accent:#bfeaff;
+    --accent-2:#7fc8ff;
+    --track:#173042;
+    --shadow:0 22px 70px rgba(0,0,0,.28);
   }
   *{box-sizing:border-box}
-  html{min-height:100%;background:#071317}
+  html,body{min-height:100%}
   body{
     margin:0;
-    min-height:100%;
-    overflow-x:hidden;
-    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    background:
-      radial-gradient(circle at 50% 8%,rgba(163,211,228,.18),transparent 34%),
-      linear-gradient(180deg,rgba(3,14,24,.30),rgba(4,16,22,.68) 48%,rgba(3,12,16,.96));
     color:var(--text);
+    font-family:Futura, "Futura PT", "Trebuchet MS", Arial, sans-serif;
+    background:#081018;
+    overflow-x:hidden;
   }
-  .winter-backdrop{
-    position:fixed;
-    inset:0;
-    z-index:-3;
-    pointer-events:none;
-    overflow:hidden;
-    background:linear-gradient(180deg,#18364a 0%,#284c5d 34%,#3e5d68 58%,#14252b 100%);
-  }
-  .winter-backdrop:before{
-    content:"";
-    position:absolute;
-    inset:0;
+
+  .backdrop,
+  .backdrop::before,
+  .backdrop::after,
+  .snow-layer{position:fixed; inset:0; pointer-events:none}
+  .backdrop{
+    z-index:-5;
     background:
-      radial-gradient(circle at 70% 14%,rgba(232,246,250,.42),transparent 16%),
-      linear-gradient(180deg,rgba(10,24,38,.06),rgba(5,15,19,.52));
+      linear-gradient(180deg, rgba(8,15,22,.30), rgba(5,12,18,.76) 55%, rgba(4,10,14,.95) 100%),
+      url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Midtown_Manhattan_Skyline_2026_005.jpg') center center / cover no-repeat;
+    transform:scale(1.03);
   }
-  .skyline{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    width:100%;
-    height:72%;
-    opacity:.96;
-    filter:drop-shadow(0 -10px 24px rgba(4,13,18,.2));
+  .backdrop::before{
+    content:"";
+    background:
+      radial-gradient(circle at 20% 16%, rgba(255,255,255,.18), transparent 0 14%),
+      radial-gradient(circle at 70% 12%, rgba(189,221,240,.18), transparent 0 17%),
+      linear-gradient(180deg, rgba(24,54,79,.24), rgba(6,15,22,.20) 42%, rgba(4,8,12,.70));
+    z-index:-4;
   }
-  .snow-layer{position:absolute;inset:-12% 0 0;overflow:hidden;z-index:2}
+  .backdrop::after{
+    content:"";
+    background:
+      linear-gradient(180deg, rgba(222,240,255,.16), transparent 28%),
+      linear-gradient(0deg, rgba(12,22,29,.88), rgba(12,22,29,0) 30%);
+    z-index:-3;
+  }
+
+  .snow-back{z-index:-2; filter:blur(.3px)}
+  .snow-front{z-index:-1; filter:blur(.1px)}
   .flake{
     position:absolute;
-    top:-8%;
+    top:-10vh;
     left:var(--x);
     width:var(--size);
     height:var(--size);
     border-radius:50%;
     background:rgba(255,255,255,var(--alpha));
-    box-shadow:0 0 8px rgba(255,255,255,.24);
-    animation:snowfall var(--duration) linear var(--delay) infinite;
-    transform:translate3d(0,0,0);
+    box-shadow:0 0 12px rgba(255,255,255,.18);
+    animation:snowFall var(--duration) linear var(--delay) infinite;
+    will-change:transform;
   }
-  @keyframes snowfall{
-    0%{transform:translate3d(0,-8vh,0) rotate(0deg)}
-    50%{transform:translate3d(var(--drift),52vh,0) rotate(180deg)}
-    100%{transform:translate3d(calc(var(--drift) * -.35),112vh,0) rotate(360deg)}
+  .snow-front .flake{ box-shadow:0 0 14px rgba(255,255,255,.28) }
+  @keyframes snowFall{
+    0%{ transform:translate3d(0,-12vh,0) }
+    30%{ transform:translate3d(calc(var(--drift) * 1), 30vh,0) }
+    60%{ transform:translate3d(calc(var(--drift) * -.55), 68vh,0) }
+    100%{ transform:translate3d(calc(var(--drift) * .8), 118vh,0) }
   }
-  @media (prefers-reduced-motion: reduce){.flake{animation:none;opacity:.55}}
-  .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:32px 20px 48px}
-  h1{margin:0 0 8px;font-size:clamp(30px,5vw,52px);letter-spacing:-.03em}
-  .sub{color:var(--muted);margin-bottom:28px;font-size:16px}
-  .grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:22px}
-  @media(max-width:860px){.grid{grid-template-columns:1fr}}
-  .panel,.summary{background:rgba(7,23,29,.82);border:1px solid rgba(150,202,216,.22);border-radius:20px;padding:20px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 24px 70px rgba(0,0,0,.20)}
-  .section{margin-bottom:22px}
-  .label{font-size:14px;font-weight:700;margin-bottom:10px;display:block}
-  .date-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  @media(max-width:540px){.date-grid{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion: reduce){
+    .flake{animation:none; opacity:.45}
+  }
+
+  .wrap{max-width:1240px; margin:0 auto; padding:28px 20px 48px; position:relative; z-index:1}
+  h1{margin:0 0 8px; font-size:clamp(32px,5vw,56px); letter-spacing:-.03em; text-shadow:0 2px 20px rgba(0,0,0,.26)}
+  .sub{color:#e7f0f6; max-width:860px; margin-bottom:26px; font-size:17px; line-height:1.45}
+
+  .grid{display:grid; grid-template-columns:minmax(0,1.18fr) minmax(330px,.82fr); gap:24px}
+  @media(max-width:930px){.grid{grid-template-columns:1fr}}
+
+  .panel,.summary,.map-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:22px;
+    backdrop-filter:blur(18px) saturate(120%);
+    -webkit-backdrop-filter:blur(18px) saturate(120%);
+    box-shadow:var(--shadow);
+  }
+  .summary{background:var(--panel-2); position:sticky; top:18px; height:max-content}
+  @media(max-width:930px){.summary{position:static}}
+
+  .section{margin-bottom:24px}
+  .label{font-size:14px; font-weight:700; margin-bottom:10px; display:block; text-transform:uppercase; letter-spacing:.08em}
+  .date-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media(max-width:560px){.date-grid{grid-template-columns:1fr}}
   button,select,input{font:inherit}
-  .date-btn{width:100%;text-align:left;padding:14px;border-radius:14px;border:1px solid var(--border);background:#0a171b;color:var(--text);cursor:pointer;min-height:72px}
-  .date-btn.active{border-color:var(--accent);background:var(--accent-bg)}
-  .date-btn small{display:block;color:var(--muted);margin-top:4px}
-  .controls{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:620px){.controls{grid-template-columns:1fr}}
-  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
-  select,input{width:100%;padding:12px 13px;border-radius:11px;border:1px solid var(--border);background:#09171b;color:var(--text);outline:none}
-  select:focus,input:focus,button:focus{box-shadow:0 0 0 3px rgba(133,216,232,.18);border-color:var(--accent)}
-  details{border-top:1px solid var(--border);padding-top:16px}
-  summary{cursor:pointer;font-weight:700}
-  .assumptions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-  @media(max-width:620px){.assumptions{grid-template-columns:1fr}}
-  .reset{margin-top:14px;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:#0a171b;color:var(--text);cursor:pointer}
-  .summary{position:sticky;top:18px;height:max-content}
-  @media(max-width:860px){.summary{position:static}}
-  .eyebrow{text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-size:12px}
-  .total{font-size:48px;font-weight:800;letter-spacing:-.04em;margin:4px 0}
-  .per{color:var(--muted);margin-bottom:18px}
-  .row{display:flex;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid rgba(36,66,75,.55)}
+  .date-btn{
+    width:100%; text-align:left; padding:16px; min-height:78px; cursor:pointer;
+    border-radius:16px; border:1px solid rgba(191,234,255,.18);
+    color:var(--text); background:rgba(8,18,26,.60);
+    transition:.2s ease;
+  }
+  .date-btn:hover{transform:translateY(-1px); border-color:rgba(191,234,255,.35)}
+  .date-btn.active{background:rgba(23,56,77,.68); border-color:rgba(191,234,255,.60); box-shadow:inset 0 0 0 1px rgba(191,234,255,.12)}
+  .date-btn small{display:block; color:var(--muted); margin-top:6px; line-height:1.35}
+
+  .controls{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media(max-width:650px){.controls{grid-template-columns:1fr}}
+  .field label{display:block; font-size:13px; font-weight:700; margin-bottom:7px; letter-spacing:.02em}
+  select, input[type="number"]{
+    width:100%; padding:12px 13px; border-radius:12px; border:1px solid rgba(191,234,255,.18);
+    background:rgba(7,16,24,.62); color:var(--text); outline:none;
+  }
+  select:focus, input[type="number"]:focus, button:focus{box-shadow:0 0 0 3px rgba(127,200,255,.18); border-color:var(--accent-2)}
+
+  details{border-top:1px solid rgba(191,234,255,.14); padding-top:18px}
+  summary{cursor:pointer; font-weight:700; letter-spacing:.02em}
+  .assumptions{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px}
+  @media(max-width:650px){.assumptions{grid-template-columns:1fr}}
+  .slider-field{grid-column:1 / -1; background:rgba(11,24,36,.42); border:1px solid rgba(191,234,255,.12); border-radius:16px; padding:14px 14px 12px}
+  .slider-head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px}
+  .slider-value{font-weight:700; color:#fff}
+  input[type="range"]{
+    -webkit-appearance:none; appearance:none; width:100%; height:8px; border-radius:999px;
+    background:linear-gradient(90deg, rgba(127,200,255,.9), rgba(191,234,255,.45)); outline:none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none; width:22px; height:22px; border-radius:50%;
+    background:#fff; border:3px solid #7fc8ff; box-shadow:0 2px 12px rgba(0,0,0,.28); cursor:pointer;
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:22px; height:22px; border:none; border-radius:50%; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,.28); cursor:pointer;
+  }
+  .slider-scale{display:flex; justify-content:space-between; margin-top:8px; color:var(--muted); font-size:12px}
+
+  .reset{margin-top:16px; padding:11px 15px; border-radius:12px; border:1px solid rgba(191,234,255,.18); background:rgba(8,18,26,.64); color:var(--text); cursor:pointer}
+  .eyebrow{text-transform:uppercase; letter-spacing:.14em; color:#d8e6ef; font-size:11px}
+  .total{font-size:50px; font-weight:800; letter-spacing:-.04em; margin:4px 0}
+  .per{color:var(--muted); margin-bottom:18px}
+  .row{display:flex; justify-content:space-between; gap:20px; padding:10px 0; border-bottom:1px solid rgba(191,234,255,.08)}
   .row span:first-child{color:var(--muted)}
-  .grand{border-top:1px solid var(--border);margin-top:8px;padding-top:14px;font-size:18px;font-weight:800}
-  .trip{margin-top:20px;padding-top:18px;border-top:1px solid var(--border);line-height:1.6;color:var(--muted)}
-  .trip strong{color:var(--text)}
-  .note{margin-top:18px;padding:13px;border-radius:12px;background:#0a171b;color:var(--muted);font-size:12px;line-height:1.55}
-  .pill{display:inline-block;margin-top:8px;padding:5px 9px;border-radius:999px;background:#0c2b31;color:var(--good);font-size:12px;font-weight:700}
-  .footer{margin-top:24px;color:#7f979f;font-size:12px}
+  .grand{border-top:1px solid rgba(191,234,255,.15); margin-top:8px; padding-top:14px; font-size:18px; font-weight:800}
+  .trip{margin-top:18px; padding-top:18px; border-top:1px solid rgba(191,234,255,.15); line-height:1.65; color:var(--muted)}
+  .trip strong{color:#fff}
+  .note{margin-top:18px; padding:14px; border-radius:14px; background:rgba(8,18,26,.62); color:var(--muted); font-size:12px; line-height:1.55}
+  .pill{display:inline-block; margin-top:8px; padding:5px 10px; border-radius:999px; background:rgba(127,200,255,.15); color:#dff4ff; font-size:12px; font-weight:700}
+
+  .map-card{margin-top:18px; padding:18px 18px 16px}
+  .map-card h3{margin:0 0 6px; font-size:20px}
+  .map-sub{margin:0 0 12px; color:var(--muted); font-size:14px; line-height:1.45}
+  .google-map-wrap{overflow:hidden;border-radius:18px;border:1px solid rgba(191,234,255,.12);background:#102332}
+  #googleMap{width:100%;height:430px;border:0;display:block;filter:saturate(.82) contrast(1.03)}
+  .map-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+  .map-action{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 13px;border-radius:12px;background:rgba(127,200,255,.14);border:1px solid rgba(191,234,255,.16);color:#eef9ff;text-decoration:none;font-size:13px;font-weight:700}
+  .map-action:hover{background:rgba(127,200,255,.22)}
+  .map-legend{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; margin-top:12px}
+  @media(max-width:620px){.map-legend{grid-template-columns:1fr}}
+  .legend-item{padding:10px 12px; border-radius:14px; background:rgba(8,18,26,.54); border:1px solid rgba(191,234,255,.10)}
+  .legend-title{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:700; margin-bottom:4px}
+  .dot{width:10px; height:10px; border-radius:50%}
+  .airport-dot{background:#bfeaff}
+  .hotel-dot{background:#8effc5}
+  .theater-dot{background:#ffd479}
+  .legend-meta{font-size:12px; color:var(--muted); line-height:1.45}
+
+  .footer{margin-top:24px; color:#dbe8ef; font-size:12px; line-height:1.55}
+  .footer a{color:#dff4ff}
 </style>
 </head>
 <body>
-<div class="winter-backdrop" aria-hidden="true">
-  <svg class="skyline" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
-    <defs>
-      <linearGradient id="building" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#17313c"/>
-        <stop offset="1" stop-color="#071217"/>
-      </linearGradient>
-      <linearGradient id="nearBuilding" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#234652"/>
-        <stop offset="1" stop-color="#0b171c"/>
-      </linearGradient>
-      <linearGradient id="snowbank" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#e9f4f7" stop-opacity=".9"/>
-        <stop offset="1" stop-color="#8eacb5" stop-opacity=".32"/>
-      </linearGradient>
-      <pattern id="windows" width="28" height="34" patternUnits="userSpaceOnUse">
-        <rect width="28" height="34" fill="none"/>
-        <rect x="8" y="8" width="5" height="8" rx="1" fill="#e7cf91" opacity=".55"/>
-      </pattern>
-    </defs>
-    <path d="M0 640 Q170 612 330 630 T660 622 T980 635 T1280 617 T1600 628 V900 H0Z" fill="url(#snowbank)" opacity=".55"/>
-    <g fill="url(#building)">
-      <rect x="0" y="438" width="128" height="330"/><rect x="105" y="505" width="105" height="265"/>
-      <rect x="188" y="390" width="154" height="380"/><rect x="318" y="472" width="86" height="298"/>
-      <rect x="392" y="330" width="138" height="440"/><rect x="520" y="458" width="90" height="312"/>
-      <rect x="596" y="286" width="126" height="484"/><rect x="708" y="440" width="130" height="330"/>
-      <rect x="824" y="360" width="112" height="410"/><rect x="924" y="470" width="140" height="300"/>
-      <rect x="1050" y="318" width="150" height="452"/><rect x="1187" y="430" width="112" height="340"/>
-      <rect x="1284" y="380" width="136" height="390"/><rect x="1404" y="472" width="196" height="298"/>
-    </g>
-    <g fill="url(#windows)" opacity=".72">
-      <rect x="0" y="438" width="128" height="330"/><rect x="188" y="390" width="154" height="380"/>
-      <rect x="392" y="330" width="138" height="440"/><rect x="596" y="286" width="126" height="484"/>
-      <rect x="824" y="360" width="112" height="410"/><rect x="1050" y="318" width="150" height="452"/>
-      <rect x="1284" y="380" width="136" height="390"/>
-    </g>
-    <!-- Empire State inspired center silhouette -->
-    <g>
-      <rect x="738" y="236" width="106" height="534" fill="url(#nearBuilding)"/>
-      <rect x="752" y="198" width="78" height="572" fill="url(#nearBuilding)"/>
-      <rect x="765" y="154" width="52" height="616" fill="#173640"/>
-      <rect x="778" y="114" width="26" height="656" fill="#1b3c47"/>
-      <rect x="787" y="65" width="8" height="705" fill="#bad3da" opacity=".65"/>
-      <rect x="738" y="236" width="106" height="534" fill="url(#windows)" opacity=".48"/>
-    </g>
-    <!-- Snowy roof lines -->
-    <g stroke="#d9edf2" stroke-width="8" stroke-linecap="round" opacity=".5">
-      <path d="M0 438h128M188 390h154M392 330h138M596 286h126M824 360h112M1050 318h150M1284 380h136"/>
-    </g>
-    <path d="M0 765 Q330 728 610 753 T1090 746 T1600 760 V900 H0Z" fill="#dcecef" opacity=".23"/>
-  </svg>
-  <div id="snowLayer" class="snow-layer"></div>
-</div>
+<div class="backdrop" aria-hidden="true"></div>
+<div class="snow-layer snow-back" id="snowBack" aria-hidden="true"></div>
+<div class="snow-layer snow-front" id="snowFront" aria-hidden="true"></div>
+
 <div class="wrap">
   <h1>NYC Paranormal Activity Trip Planner</h1>
-  <div class="sub">Toggle your date, travelers, Arlo room setup, seat tier, and spending level to compare trip costs.</div>
+  <div class="sub">Toggle your date, travelers, Arlo room setup, seat tier, and spending level to compare trip costs. Includes nonstop-airfare assumptions, live sliders for food and misc spending, and a route map from the selected airport to Arlo Midtown and the August Wilson Theatre.</div>
+
   <div class="grid">
     <main class="panel">
       <section class="section">
         <span class="label">Trip dates</span>
         <div class="date-grid">
-          <button class="date-btn active" data-date="jan" type="button"><strong>Jan. 19–21, 2027</strong><small>Paranormal Activity · Wed. Jan. 20 · 7:00 PM</small></button>
-          <button class="date-btn" data-date="feb" type="button"><strong>Feb. 9–11, 2027</strong><small>Paranormal Activity · Wed. Feb. 10 · 7:00 PM</small></button>
+          <button class="date-btn active" data-date="jan" type="button">
+            <strong>Jan. 19–21, 2027</strong>
+            <small>Paranormal Activity · Wed. Jan. 20 · 7:00 PM</small>
+          </button>
+          <button class="date-btn" data-date="feb" type="button">
+            <strong>Feb. 9–11, 2027</strong>
+            <small>Paranormal Activity · Wed. Feb. 10 · 7:00 PM</small>
+          </button>
         </div>
       </section>
+
       <section class="section controls">
-        <div class="field"><label for="party">Who is going?</label><select id="party"><option value="2">You + wife</option><option value="3">You + wife + brother</option></select></div>
-        <div class="field" id="roomWrap"><label for="room">Brother's room</label><select id="room"><option value="share">Shares your Arlo room</option><option value="separate">Separate Arlo room</option></select></div>
-        <div class="field"><label for="seat">Broadway seats</label><select id="seat"><option value="mid">Mid-Orchestra / Insider</option><option value="preferred">Preferred</option></select></div>
-        <div class="field"><label for="level">Budget style</label><select id="level"><option value="lean">Lean</option><option value="expected" selected>Expected</option><option value="comfortable">Comfortable</option></select></div>
-        <div class="field"><label for="airline">Nonstop airline</label><select id="airline"><option value="southwest">Southwest → LGA</option><option value="delta">Delta → LGA/JFK</option><option value="united">United → EWR</option></select></div>
+        <div class="field">
+          <label for="party">Who is going?</label>
+          <select id="party">
+            <option value="2">You + wife</option>
+            <option value="3">You + wife + brother</option>
+          </select>
+        </div>
+
+        <div class="field" id="roomWrap">
+          <label for="room">Brother's room</label>
+          <select id="room">
+            <option value="share">Shares your Arlo room</option>
+            <option value="separate">Separate Arlo room</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="seat">Broadway seats</label>
+          <select id="seat">
+            <option value="mid">Mid-Orchestra / Insider</option>
+            <option value="preferred">Preferred</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="level">Budget style</label>
+          <select id="level">
+            <option value="lean">Lean</option>
+            <option value="expected" selected>Expected</option>
+            <option value="comfortable">Comfortable</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="airline">Nonstop airline</label>
+          <select id="airline">
+            <option value="southwest">Southwest → LGA</option>
+            <option value="delta">Delta → LGA</option>
+            <option value="united">United → EWR</option>
+          </select>
+        </div>
       </section>
+
       <details>
         <summary>Adjust planning assumptions</summary>
         <div class="assumptions">
-          <div class="field"><label for="airfare">Airfare per person ($)</label><input id="airfare" type="number" min="0" step="10"></div>
-          <div class="field"><label for="hotel">Arlo per room / night ($)</label><input id="hotel" type="number" min="0" step="10"></div>
-          <div class="field"><label for="food">Food per person for trip ($)</label><input id="food" type="number" min="0" step="10"></div>
-          <div class="field"><label for="transit">Local transportation total ($)</label><input id="transit" type="number" min="0" step="10"></div>
-          <div class="field"><label for="misc">Miscellaneous cushion ($)</label><input id="misc" type="number" min="0" step="10"></div>
+          <div class="field">
+            <label for="airfare">Airfare per person ($)</label>
+            <input id="airfare" type="number" min="0" step="10">
+          </div>
+          <div class="field">
+            <label for="hotel">Arlo per room / night ($)</label>
+            <input id="hotel" type="number" min="0" step="10">
+          </div>
+          <div class="field">
+            <label for="transit">Local transportation total ($)</label>
+            <input id="transit" type="number" min="0" step="10">
+          </div>
+
+          <div class="slider-field">
+            <div class="slider-head">
+              <label for="food">Food per person for trip</label>
+              <span class="slider-value" id="foodValue">$0</span>
+            </div>
+            <input id="food" type="range" min="120" max="420" step="10" value="210">
+            <div class="slider-scale"><span>$120</span><span>$420</span></div>
+          </div>
+
+          <div class="slider-field">
+            <div class="slider-head">
+              <label for="misc">Miscellaneous cushion</label>
+              <span class="slider-value" id="miscValue">$0</span>
+            </div>
+            <input id="misc" type="range" min="20" max="300" step="10" value="90">
+            <div class="slider-scale"><span>$20</span><span>$300</span></div>
+          </div>
         </div>
         <button class="reset" id="reset" type="button">Reset assumptions</button>
       </details>
+
+      <section class="map-card">
+        <h3>Airport → Hotel → Theater Map</h3>
+        <p class="map-sub">A simple route graphic showing the selected airport, Arlo Midtown, and the August Wilson Theatre.</p>
+        <div class="google-map-wrap">
+          <iframe id="googleMap" title="Google Map showing the NYC trip area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <div class="map-actions">
+          <a id="airportToHotelLink" class="map-action" target="_blank" rel="noreferrer noopener">Airport → Arlo directions</a>
+          <a id="hotelToTheaterLink" class="map-action" target="_blank" rel="noreferrer noopener">Arlo → Theater directions</a>
+        </div>
+        <div class="map-legend">
+          <div class="legend-item">
+            <div class="legend-title"><span class="dot airport-dot"></span><span id="airportLegendTitle">Airport</span></div>
+            <div class="legend-meta" id="airportLegendMeta"></div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-title"><span class="dot hotel-dot"></span>Arlo Midtown</div>
+            <div class="legend-meta">351 W 38th St, New York, NY</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-title"><span class="dot theater-dot"></span>August Wilson Theatre</div>
+            <div class="legend-meta">245 W 52nd St, New York, NY</div>
+          </div>
+        </div>
+      </section>
     </main>
+
     <aside class="summary">
       <div class="eyebrow">Estimated trip total</div>
       <div id="total" class="total">$0</div>
@@ -206,22 +319,44 @@
       <div class="note">Planning estimates only. Ticket anchors are approximately $100 for Mid-Orchestra/Insider and $145 for Preferred before a modest fee cushion. Airfare and hotel inputs are editable because live pricing will change.</div>
     </aside>
   </div>
-  <div class="footer">Standalone planner — no login, internet connection, or installation required after download.</div>
+
+  <div class="footer">
+    Backdrop photo: <a href="https://commons.wikimedia.org/wiki/File:Midtown_Manhattan_Skyline_2026_005.jpg" target="_blank" rel="noreferrer noopener">“Midtown Manhattan Skyline 2026 005.jpg” by Kidfly182</a> (CC BY 4.0), via Wikimedia Commons.
+  </div>
 </div>
+
 <script>
 (() => {
   const state = { date:'jan' };
+
   const presets = {
     lean: { airfare:260, hotelJan:230, hotelFeb:240, food:160, transit:90, misc:60 },
     expected: { airfare:360, hotelJan:300, hotelFeb:315, food:210, transit:120, misc:90 },
     comfortable: { airfare:450, hotelJan:375, hotelFeb:395, food:280, transit:160, misc:140 }
   };
+
   const airlineAdj = { southwest:0, delta:-25, united:-15 };
   const seatPrice = { mid:112, preferred:162 };
-  const $ = s => document.querySelector(s);
-  const $$ = s => [...document.querySelectorAll(s)];
-  function money(n){ return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Math.max(0, Number(n)||0)); }
-  function val(id){ const n = Number($(id).value); return Number.isFinite(n) && n >= 0 ? n : 0; }
+  const airports = {
+    southwest: { code:'LGA', name:'LaGuardia Airport', area:'Queens', x:800, y:135, transit:'~25–35 min to Midtown' },
+    delta:     { code:'LGA', name:'LaGuardia Airport', area:'Queens', x:800, y:135, transit:'~25–35 min to Midtown' },
+    united:    { code:'EWR', name:'Newark Liberty', area:'New Jersey', x:165, y:392, transit:'~35–50 min to Midtown' }
+  };
+  const hotel = { name:'Arlo Midtown', x:475, y:233 };
+  const theater = { name:'August Wilson Theatre', x:525, y:188 };
+
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+  function money(n){
+    return new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 }).format(Math.max(0, Number(n)||0));
+  }
+
+  function val(id){
+    const n = Number($(id).value);
+    return Number.isFinite(n) && n >= 0 ? n : 0;
+  }
+
   function loadPreset(){
     const level = $('#level').value;
     const airline = $('#airline').value;
@@ -229,66 +364,146 @@
     $('#airfare').value = Math.max(0, p.airfare + airlineAdj[airline]);
     $('#hotel').value = state.date === 'jan' ? p.hotelJan : p.hotelFeb;
     $('#food').value = p.food;
-    $('#transit').value = p.transit;
     $('#misc').value = p.misc;
+    $('#transit').value = p.transit;
+    updateSliderLabels();
   }
+
+  function updateSliderLabels(){
+    $('#foodValue').textContent = money(val('#food')) + ' / person';
+    $('#miscValue').textContent = money(val('#misc'));
+  }
+
+  function renderMap(){
+    const airline = $('#airline').value;
+    const airport = airports[airline];
+    const hotelAddress = 'Arlo Midtown, 351 W 38th St, New York, NY 10018';
+    const theaterAddress = 'August Wilson Theatre, 245 W 52nd St, New York, NY 10019';
+    const airportAddress = airport.code === 'EWR'
+      ? 'Newark Liberty International Airport, Newark, NJ'
+      : 'LaGuardia Airport, Queens, NY';
+
+    // Google Maps standard embed URL: centers the live map without requiring a custom API key.
+    const mapQuery = encodeURIComponent('Arlo Midtown New York');
+    $('#googleMap').src = 'https://www.google.com/maps?q=' + mapQuery + '&z=12&output=embed';
+
+    $('#airportToHotelLink').href =
+      'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(airportAddress) +
+      '&destination=' + encodeURIComponent(hotelAddress) + '&travelmode=driving';
+
+    $('#hotelToTheaterLink').href =
+      'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(hotelAddress) +
+      '&destination=' + encodeURIComponent(theaterAddress) + '&travelmode=walking';
+
+    $('#airportLegendTitle').textContent = airport.code + ' · ' + airport.name;
+    $('#airportLegendMeta').textContent = airport.area + ' · ' + airport.transit;
+  }
+
   function render(){
     const party = Number($('#party').value);
     const room = $('#room').value;
     const seat = $('#seat').value;
     const airline = $('#airline').value;
+
     $('#room').disabled = party !== 3;
     $('#roomWrap').style.opacity = party === 3 ? '1' : '.45';
     $$('.date-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.date === state.date));
+
+    updateSliderLabels();
+    renderMap();
+
     const rooms = party === 3 && room === 'separate' ? 2 : 1;
     const airfare = val('#airfare') * party;
-    const hotel = val('#hotel') * 2 * rooms;
+    const hotelTotal = val('#hotel') * 2 * rooms;
     const tickets = seatPrice[seat] * party;
     const food = val('#food') * party;
     const transit = val('#transit');
     const misc = val('#misc');
-    const total = airfare + hotel + tickets + food + transit + misc;
+    const total = airfare + hotelTotal + tickets + food + transit + misc;
+
     $('#total').textContent = money(total);
     $('#perPerson').textContent = money(total / party) + ' per person';
+
     const rows = [
       ['Nonstop airfare', airfare],
-      [`Arlo · ${rooms} room${rooms > 1 ? 's' : ''} · 2 nights`, hotel],
-      [`${seat === 'preferred' ? 'Preferred' : 'Mid-Orchestra'} tickets`, tickets],
+      ['Arlo · ' + rooms + ' room' + (rooms > 1 ? 's' : '') + ' · 2 nights', hotelTotal],
+      [(seat === 'preferred' ? 'Preferred' : 'Mid-Orchestra') + ' tickets', tickets],
       ['Lunches + dinners + snacks', food],
       ['Airport/local transportation', transit],
       ['Miscellaneous cushion', misc]
     ];
-    $('#breakdown').innerHTML = rows.map(([label, amount]) => `<div class="row"><span>${label}</span><strong>${money(amount)}</strong></div>`).join('') + `<div class="row grand"><span>Total</span><strong>${money(total)}</strong></div>`;
-    const dateText = state.date === 'jan' ? 'Jan. 19–21, with the Jan. 20 7 PM show' : 'Feb. 9–11, with the Feb. 10 7 PM show';
-    const airlineText = { southwest:'Southwest nonstop to LaGuardia', delta:'Delta nonstop', united:'United nonstop to Newark' }[airline];
-    const roomText = party === 2 ? 'one Arlo room' : room === 'share' ? 'one Arlo room shared by all three' : 'two separate Arlo rooms';
-    $('#tripSummary').innerHTML = `<strong>${dateText}</strong><br>${party} travelers · ${roomText}<br>${airlineText} · ${seat === 'preferred' ? 'Preferred' : 'Mid-Orchestra / Insider'} seats<br><span class="pill">2-night NYC trip</span>`;
+
+    $('#breakdown').innerHTML = rows.map(function(entry){
+      return '<div class="row"><span>' + entry[0] + '</span><strong>' + money(entry[1]) + '</strong></div>';
+    }).join('') + '<div class="row grand"><span>Total</span><strong>' + money(total) + '</strong></div>';
+
+    const dateText = state.date === 'jan'
+      ? 'Jan. 19–21, with the Jan. 20 7 PM show'
+      : 'Feb. 9–11, with the Feb. 10 7 PM show';
+
+    const airlineText = {
+      southwest:'Southwest nonstop to LaGuardia',
+      delta:'Delta nonstop to LaGuardia',
+      united:'United nonstop to Newark'
+    }[airline];
+
+    const roomText = party === 2
+      ? 'one Arlo room'
+      : room === 'share'
+      ? 'one Arlo room shared by all three'
+      : 'two separate Arlo rooms';
+
+    $('#tripSummary').innerHTML =
+      '<strong>' + dateText + '</strong><br>' +
+      party + ' travelers · ' + roomText + '<br>' +
+      airlineText + ' · ' + (seat === 'preferred' ? 'Preferred' : 'Mid-Orchestra / Insider') + ' seats' +
+      '<br><span class="pill">2-night NYC trip</span>';
   }
-  $$('.date-btn').forEach(btn => btn.addEventListener('click', () => { state.date = btn.dataset.date; loadPreset(); render(); }));
-  ['#party','#room','#seat'].forEach(id => $(id).addEventListener('change', render));
+
+  function buildSnow(){
+    const back = $('#snowBack');
+    const front = $('#snowFront');
+    if (!back || !front) return;
+
+    const smallCount = window.matchMedia('(max-width: 700px)').matches ? 120 : 180;
+    const bigCount = window.matchMedia('(max-width: 700px)').matches ? 70 : 120;
+
+    function addFlakes(layer, count, sizeMin, sizeMax, durMin, durMax, alphaMin, alphaMax, driftRange){
+      const frag = document.createDocumentFragment();
+      for (let i = 0; i < count; i++) {
+        const flake = document.createElement('i');
+        flake.className = 'flake';
+        const size = (Math.random() * (sizeMax - sizeMin) + sizeMin).toFixed(1) + 'px';
+        flake.style.setProperty('--x', (Math.random() * 100).toFixed(2) + '%');
+        flake.style.setProperty('--size', size);
+        flake.style.setProperty('--alpha', (Math.random() * (alphaMax - alphaMin) + alphaMin).toFixed(2));
+        flake.style.setProperty('--duration', (Math.random() * (durMax - durMin) + durMin).toFixed(2) + 's');
+        flake.style.setProperty('--delay', (-Math.random() * 20).toFixed(2) + 's');
+        flake.style.setProperty('--drift', (Math.random() * driftRange * 2 - driftRange).toFixed(1) + 'px');
+        frag.appendChild(flake);
+      }
+      layer.appendChild(frag);
+    }
+
+    addFlakes(back, smallCount, 1.8, 5.4, 12, 22, .18, .52, 45);
+    addFlakes(front, bigCount, 3.2, 8.5, 8, 16, .34, .86, 70);
+  }
+
+  $$('.date-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.date = btn.dataset.date;
+      loadPreset();
+      render();
+    });
+  });
+
+  ['#party', '#room', '#seat'].forEach(id => $(id).addEventListener('change', render));
   $('#level').addEventListener('change', () => { loadPreset(); render(); });
   $('#airline').addEventListener('change', () => { loadPreset(); render(); });
-  ['#airfare','#hotel','#food','#transit','#misc'].forEach(id => $(id).addEventListener('input', render));
+  ['#airfare', '#hotel', '#transit'].forEach(id => $(id).addEventListener('input', render));
+  ['#food', '#misc'].forEach(id => $(id).addEventListener('input', () => { updateSliderLabels(); render(); }));
   $('#reset').addEventListener('click', () => { loadPreset(); render(); });
-  function buildSnow(){
-    const layer = document.getElementById('snowLayer');
-    if (!layer) return;
-    const count = window.matchMedia('(max-width: 620px)').matches ? 48 : 84;
-    const frag = document.createDocumentFragment();
-    for(let i=0;i<count;i++){
-      const f = document.createElement('i');
-      f.className = 'flake';
-      const size = (Math.random()*5 + 2).toFixed(1) + 'px';
-      f.style.setProperty('--x', (Math.random()*100).toFixed(2) + '%');
-      f.style.setProperty('--size', size);
-      f.style.setProperty('--alpha', (Math.random()*.55 + .28).toFixed(2));
-      f.style.setProperty('--duration', (Math.random()*10 + 9).toFixed(2) + 's');
-      f.style.setProperty('--delay', (-Math.random()*18).toFixed(2) + 's');
-      f.style.setProperty('--drift', (Math.random()*90 - 45).toFixed(1) + 'px');
-      frag.appendChild(f);
-    }
-    layer.appendChild(frag);
-  }
+
   loadPreset();
   render();
   buildSnow();
