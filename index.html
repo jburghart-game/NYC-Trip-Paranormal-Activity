@@ -165,7 +165,21 @@
   .pill{display:inline-block; margin-top:8px; padding:5px 10px; border-radius:999px; background:rgba(127,200,255,.15); color:#dff4ff; font-size:12px; font-weight:700}
 
   .sights-card{margin-top:18px;padding:18px;border-radius:20px;background:rgba(8,18,26,.54);border:1px solid rgba(191,234,255,.12)}
-  .sights-card h3{margin:0 0 6px;font-size:20px}
+  .sights-card h3{margin:0 0 6px;font-size:22px}
+  .sights-table{margin-top:14px;overflow:hidden;border:1px solid rgba(191,234,255,.12);border-radius:16px}
+  .sights-row{display:grid;grid-template-columns:minmax(180px,1.5fr) 110px 150px minmax(180px,1fr);gap:12px;align-items:center;padding:13px 14px;border-top:1px solid rgba(191,234,255,.08);background:rgba(8,18,26,.48)}
+  .sights-row:first-child{border-top:0}
+  .sights-row.header{background:rgba(127,200,255,.10);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#dceaf2}
+  .sights-name{font-weight:700;color:#fff}
+  .sights-detail{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.35}
+  .sights-price,.sights-distance{font-size:13px;font-weight:700;color:#eef9ff}
+  .sights-links-inline{display:flex;gap:10px;flex-wrap:wrap}
+  .sights-links-inline a{color:#eef9ff;text-decoration:none;font-size:11px;border-bottom:1px solid rgba(238,249,255,.28)}
+  @media(max-width:760px){
+    .sights-row{grid-template-columns:1fr 1fr;gap:8px 12px}
+    .sights-row.header{display:none}
+    .sights-links-inline{grid-column:1/-1}
+  }
   .sights-sub{margin:0 0 14px;color:var(--muted);font-size:14px;line-height:1.5}
   .sights-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   @media(max-width:700px){.sights-grid{grid-template-columns:1fr}}
@@ -321,68 +335,94 @@
       </details>
 
       <section class="sights-card">
-        <h3>Film + Art Nearby</h3>
-        <p class="sights-sub">All of these are easy to reach from Arlo Midtown and the theater district. Prices below are current adult/general-admission prices as of November 2026.</p>
-        <div class="sights-grid">
-          <article class="sight">
-            <div class="sight-top">
-              <h4>MoMA</h4>
-              <span class="price-tag">$30</span>
-            </div>
-            <p>Best fit for your art interest, and especially good if you also care about film: MoMA has major modern-art galleries plus an active film program and screening theaters. 11 W 53rd St.</p>
-            <div class="sight-links">
-              <a href="https://www.moma.org/visit/" target="_blank" rel="noreferrer noopener">Official visit info ↗</a>
-              <a href="https://www.google.com/maps/search/?api=1&query=MoMA+11+W+53rd+St+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
-            </div>
-          </article>
+        <h3>Nearby Film + Art</h3>
+        <p class="sights-sub">These are the best nearby stops for film, art, design, and theater history. Distances are approximate walking distance from <strong>Arlo Midtown, 351 W 38th St</strong>.</p>
 
-          <article class="sight">
-            <div class="sight-top">
-              <h4>Paley Museum</h4>
-              <span class="price-tag">$20</span>
-            </div>
-            <p>A very close media-history stop with television, film, archival screenings and rotating exhibitions. 25 W 52nd St — only a few blocks from the August Wilson.</p>
-            <div class="sight-links">
-              <a href="https://www.paleycenter.org/visit-visitny" target="_blank" rel="noreferrer noopener">Official visit info ↗</a>
-              <a href="https://www.google.com/maps/search/?api=1&query=Paley+Museum+25+W+52nd+St+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
-            </div>
-          </article>
+        <div class="sights-table">
+          <div class="sights-row header">
+            <div>Place</div>
+            <div>Adult ticket</div>
+            <div>From Arlo</div>
+            <div>Links</div>
+          </div>
 
-          <article class="sight">
-            <div class="sight-top">
-              <h4>Museum of Arts and Design</h4>
-              <span class="price-tag">$20</span>
+          <div class="sights-row">
+            <div>
+              <div class="sights-name">Museum of Broadway</div>
+              <div class="sights-detail">Broadway history, costumes, scenic design and backstage craft · 145 W 45th St</div>
             </div>
-            <p>Contemporary craft, design, objects and material-focused exhibitions at Columbus Circle. Good counterpoint to MoMA if you like production design and visual culture. 2 Columbus Circle.</p>
-            <div class="sight-links">
-              <a href="https://madmuseum.org/visit" target="_blank" rel="noreferrer noopener">Official visit info ↗</a>
-              <a href="https://www.google.com/maps/search/?api=1&query=Museum+of+Arts+and+Design+2+Columbus+Circle+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
+            <div class="sights-price">$34–43</div>
+            <div class="sights-distance">≈ 0.6 mi · 13 min</div>
+            <div class="sights-links-inline">
+              <a href="https://www.themuseumofbroadway.com/plan-your-visit" target="_blank" rel="noreferrer noopener">Tickets ↗</a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=Arlo+Midtown+351+W+38th+St+New+York+NY&destination=Museum+of+Broadway+145+W+45th+St+New+York+NY&travelmode=walking" target="_blank" rel="noreferrer noopener">Walking route ↗</a>
             </div>
-          </article>
+          </div>
 
-          <article class="sight">
-            <div class="sight-top">
-              <h4>Film at Lincoln Center</h4>
-              <span class="price-tag">$18–19</span>
+          <div class="sights-row">
+            <div>
+              <div class="sights-name">Paley Museum</div>
+              <div class="sights-detail">Film, television and media history · 25 W 52nd St</div>
             </div>
-            <p>Probably the best pure-film add-on: repertory cinema, restorations, new releases, festivals and filmmaker events. Standard series tickets are $18; new releases/festivals are $19, before online service fees.</p>
-            <div class="sight-links">
-              <a href="https://www.filmlinc.org/visit-us/" target="_blank" rel="noreferrer noopener">Tickets & visit info ↗</a>
-              <a href="https://www.google.com/maps/search/?api=1&query=Film+at+Lincoln+Center+144+W+65th+St+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
+            <div class="sights-price">$20</div>
+            <div class="sights-distance">≈ 1.1 mi · 22–25 min</div>
+            <div class="sights-links-inline">
+              <a href="https://www.paleycenter.org/visit-visitny" target="_blank" rel="noreferrer noopener">Tickets ↗</a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=Arlo+Midtown+351+W+38th+St+New+York+NY&destination=Paley+Museum+25+W+52nd+St+New+York+NY&travelmode=walking" target="_blank" rel="noreferrer noopener">Walking route ↗</a>
             </div>
-          </article>
+          </div>
 
-          <article class="sight">
-            <div class="sight-top">
-              <h4>Museum of Broadway</h4>
-              <span class="price-tag">$34–43</span>
+          <div class="sights-row">
+            <div>
+              <div class="sights-name">MoMA</div>
+              <div class="sights-detail">Modern and contemporary art plus an excellent film program · 11 W 53rd St</div>
             </div>
-            <p>Not film, but a strong fit for this particular trip: immersive Broadway history, costumes, sets and backstage craft. Timed tickets generally run $34–43 before fees/tax. 145 W 45th St.</p>
-            <div class="sight-links">
-              <a href="https://www.themuseumofbroadway.com/plan-your-visit" target="_blank" rel="noreferrer noopener">Official visit info ↗</a>
-              <a href="https://www.google.com/maps/search/?api=1&query=Museum+of+Broadway+145+W+45th+St+New+York+NY" target="_blank" rel="noreferrer noopener">Google Maps ↗</a>
+            <div class="sights-price">$30</div>
+            <div class="sights-distance">≈ 1.1 mi · about 20 min</div>
+            <div class="sights-links-inline">
+              <a href="https://www.moma.org/visit/" target="_blank" rel="noreferrer noopener">Tickets ↗</a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=Arlo+Midtown+351+W+38th+St+New+York+NY&destination=MoMA+11+W+53rd+St+New+York+NY&travelmode=walking" target="_blank" rel="noreferrer noopener">Walking route ↗</a>
             </div>
-          </article>
+          </div>
+
+          <div class="sights-row">
+            <div>
+              <div class="sights-name">Museum of Arts and Design</div>
+              <div class="sights-detail">Contemporary craft, design, objects and material culture · 2 Columbus Circle</div>
+            </div>
+            <div class="sights-price">$20</div>
+            <div class="sights-distance">≈ 1.2 mi · 24–26 min</div>
+            <div class="sights-links-inline">
+              <a href="https://madmuseum.org/visit" target="_blank" rel="noreferrer noopener">Tickets ↗</a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=Arlo+Midtown+351+W+38th+St+New+York+NY&destination=Museum+of+Arts+and+Design+2+Columbus+Circle+New+York+NY&travelmode=walking" target="_blank" rel="noreferrer noopener">Walking route ↗</a>
+            </div>
+          </div>
+
+          <div class="sights-row">
+            <div>
+              <div class="sights-name">Film at Lincoln Center</div>
+              <div class="sights-detail">Repertory cinema, restorations, festivals and filmmaker events · 65th St</div>
+            </div>
+            <div class="sights-price">$18–19</div>
+            <div class="sights-distance">≈ 1.6 mi · 30–35 min</div>
+            <div class="sights-links-inline">
+              <a href="https://www.filmlinc.org/visit-us/" target="_blank" rel="noreferrer noopener">Tickets ↗</a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=Arlo+Midtown+351+W+38th+St+New+York+NY&destination=Film+at+Lincoln+Center+144+W+65th+St+New+York+NY&travelmode=walking" target="_blank" rel="noreferrer noopener">Walking route ↗</a>
+            </div>
+          </div>
+
+          <div class="sights-row">
+            <div>
+              <div class="sights-name">August Wilson Theatre</div>
+              <div class="sights-detail">Paranormal Activity · 245 W 52nd St</div>
+            </div>
+            <div class="sights-price">Your show ticket</div>
+            <div class="sights-distance">≈ 0.9 mi · 18–20 min</div>
+            <div class="sights-links-inline">
+              <a href="https://paranormalbroadway.com/tickets" target="_blank" rel="noreferrer noopener">Tickets ↗</a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=Arlo+Midtown+351+W+38th+St+New+York+NY&destination=August+Wilson+Theatre+245+W+52nd+St+New+York+NY&travelmode=walking" target="_blank" rel="noreferrer noopener">Walking route ↗</a>
+            </div>
+          </div>
         </div>
       </section>
 
