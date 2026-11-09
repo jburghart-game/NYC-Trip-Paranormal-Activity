@@ -183,6 +183,13 @@
   .google-map-wrap{overflow:hidden;border-radius:18px;border:1px solid rgba(191,234,255,.12);background:#102332}
   #googleMap{width:100%;height:430px;border:0;display:block;filter:saturate(.82) contrast(1.03)}
   .map-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+  .map-stop-list{margin-top:14px;display:grid;gap:9px}
+  .map-stop{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:10px 12px;border-radius:13px;background:rgba(8,18,26,.56);border:1px solid rgba(191,234,255,.10)}
+  .map-stop-main{min-width:0}
+  .map-stop-name{font-size:13px;font-weight:700;color:#fff}
+  .map-stop-meta{margin-top:3px;font-size:11px;color:var(--muted);line-height:1.35}
+  .map-stop a{flex:0 0 auto;color:#eef9ff;text-decoration:none;font-size:11px;border-bottom:1px solid rgba(238,249,255,.28)}
+  .map-stop a:hover{border-color:#eef9ff}
   .map-action{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 13px;border-radius:12px;background:rgba(127,200,255,.14);border:1px solid rgba(191,234,255,.16);color:#eef9ff;text-decoration:none;font-size:13px;font-weight:700}
   .map-action:hover{background:rgba(127,200,255,.22)}
   .map-legend{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; margin-top:12px}
@@ -388,6 +395,64 @@
         <div class="map-actions">
           <a id="airportToHotelLink" class="map-action" target="_blank" rel="noreferrer noopener">Airport → Arlo directions</a>
           <a id="hotelToTheaterLink" class="map-action" target="_blank" rel="noreferrer noopener">Arlo → Theater directions</a>
+        </div>
+
+        <div class="map-stop-list">
+          <div class="map-stop">
+            <div class="map-stop-main">
+              <div class="map-stop-name">Arlo Midtown</div>
+              <div class="map-stop-meta">351 W 38th St · Hotel base</div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Arlo+Midtown+351+W+38th+St+New+York+NY" target="_blank" rel="noreferrer noopener">Map ↗</a>
+          </div>
+
+          <div class="map-stop">
+            <div class="map-stop-main">
+              <div class="map-stop-name">Museum of Broadway</div>
+              <div class="map-stop-meta">$34–43 · 145 W 45th St</div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Museum+of+Broadway+145+W+45th+St+New+York+NY" target="_blank" rel="noreferrer noopener">Map ↗</a>
+          </div>
+
+          <div class="map-stop">
+            <div class="map-stop-main">
+              <div class="map-stop-name">Paley Museum</div>
+              <div class="map-stop-meta">$20 · 25 W 52nd St</div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Paley+Museum+25+W+52nd+St+New+York+NY" target="_blank" rel="noreferrer noopener">Map ↗</a>
+          </div>
+
+          <div class="map-stop">
+            <div class="map-stop-main">
+              <div class="map-stop-name">MoMA</div>
+              <div class="map-stop-meta">$30 · 11 W 53rd St</div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=MoMA+11+W+53rd+St+New+York+NY" target="_blank" rel="noreferrer noopener">Map ↗</a>
+          </div>
+
+          <div class="map-stop">
+            <div class="map-stop-main">
+              <div class="map-stop-name">Museum of Arts and Design</div>
+              <div class="map-stop-meta">$20 · 2 Columbus Circle</div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Museum+of+Arts+and+Design+2+Columbus+Circle+New+York+NY" target="_blank" rel="noreferrer noopener">Map ↗</a>
+          </div>
+
+          <div class="map-stop">
+            <div class="map-stop-main">
+              <div class="map-stop-name">Film at Lincoln Center</div>
+              <div class="map-stop-meta">$18–19 · 144 W 65th St</div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Film+at+Lincoln+Center+144+W+65th+St+New+York+NY" target="_blank" rel="noreferrer noopener">Map ↗</a>
+          </div>
+
+          <div class="map-stop">
+            <div class="map-stop-main">
+              <div class="map-stop-name">August Wilson Theatre</div>
+              <div class="map-stop-meta">245 W 52nd St · Paranormal Activity</div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=August+Wilson+Theatre+245+W+52nd+St+New+York+NY" target="_blank" rel="noreferrer noopener">Map ↗</a>
+          </div>
         </div>
         <div class="map-legend">
           <div class="legend-item">
